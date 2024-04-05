@@ -1,14 +1,18 @@
+import re
 
+def count_words_sentences(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        text = file.read()
 
+    # Використовуємо некаптурючу групу для розділових знаків речень
+    sentence_pattern = r'[.!?]|(?:\.\.\.)'
+    sentences = re.split(sentence_pattern, text)
+    sentences = [s for s in sentences if s and s.strip()]  # Фільтруємо None і пусті строки
 
+    # Регулярний вираз для знаходження слів
+    word_pattern = r'[,\s:;]+'
+    words = re.split(word_pattern, text)
+    words = [w for w in words if w and w.strip()]  # Фільтруємо None і пусті строки
 
-def print_hi(nam):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {nam}')  # Press Ctrl+F8 to toggle the breakpoint.
+    return len(words), len(sentences)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('Py')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
